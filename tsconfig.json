@@ -1,0 +1,12 @@
+{
+    "compilerOptions": {
+        "outDir": "dist",
+        "target": "ES2021",
+        "noEmitOnError": false,
+        "strict": true,
+        "allowSyntheticDefaultImports": true,
+        "module": "ESNext",
+        "moduleResolution": "node"
+    },
+    "include": ["src/**/*.ts"]
+}

@@ -1,0 +1,211 @@
+/* forme */
+/* appearance */
+/* emplacement */
+* {
+    font-family: "Montserrat", serif;
+    margin: 0%;
+    padding: 0%;
+    text-decoration: none;
+}
+
+body {
+    /* forme */
+    height: 100vh;
+
+    /* appearance */
+
+    background: linear-gradient(45deg, #3b192a, 300px, #612c46, 65%, #b45956);
+    color: white;
+}
+
+header {
+    /* forme */
+    /* appearance */
+    color: #fff;
+    /* emplacement */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 30px;
+    margin-right: 30px;
+    height: 80px;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+}
+
+.navbar-info {
+    color: #fff;
+}
+
+main {
+    background-color: #fff;
+    border-radius: 60px 0px 20px 20px;
+    padding: 40px;
+    margin: 0%;
+}
+
+.container-date {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.sub-container-date1 {
+    width: 11%;
+    background: linear-gradient(45deg, #612c46, #b45956);
+    padding: 10px;
+    border-radius: 30px 10px 10px 10px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.sub-container-date {
+    width: 11%;
+    background: linear-gradient(45deg, #612c46, #b45956);
+    padding: 10px;
+    border-radius: 10px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.date {
+    display: flex;
+    justify-content: center;
+    font-size: 2em;
+    font-weight: 600;
+}
+.day {
+    display: flex;
+    justify-content: center;
+}
+.hr {
+    border: none;
+    height: 5px;
+    border-radius: 40px;
+    background: linear-gradient(45deg, #612c46, #b45956);
+    margin-top: 40px;
+}
+
+.container-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.sub-container-info {
+    background-color: #ece5e8;
+    border-radius: 10px;
+    padding: 15px;
+    margin-top: 40px;
+    display: flex;
+    flex-direction: row;
+}
+
+.title {
+    all: unset;
+    font-size: 2em;
+    font-weight: bold;
+    color: #612c46;
+}
+.info {
+    display: flex;
+    flex-direction: column;
+}
+.sub-hr {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: none;
+    width: 350px;
+    min-height: 3px;
+    border-radius: 40px;
+    background: linear-gradient(45deg, #612c46, #b45956);
+}
+.sub-title {
+    all: unset;
+    color: #612c46;
+    font-weight: 500;
+}
+
+.todo-bt {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+}
+
+.add {
+    all: unset;
+    font-size: 1.25em;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background: linear-gradient(45deg, #612c46, #b45956);
+    padding: 10px;
+    border-radius: 10px;
+    width: 150px;
+    margin-top: 40px;
+}
+
+.button {
+    all: unset;
+    font-size: 1.25em;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background: linear-gradient(45deg, #612c46, #b45956);
+    padding: 10px;
+    border-radius: 10px;
+    width: 150px;
+}
+.button:hover {
+    background: linear-gradient(45deg, #612c46b1, #b45956a2);
+}
+
+input::placeholder {
+    /* appearance */
+    color: #612c46;
+}
+
+.to-do-date {
+    all: unset;
+    color: #612c46;
+    font-weight: 500;
+}
+
+.form-task {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.gr {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.checkbox {
+    margin-left: 20px;
+    margin-right: 30px;
+    background-color: #fff;
+    width: 30px;
+    height: 30px;
+    border: none;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.checkbox:hover {
+    background-color: #612c46;
+}
+
+.checkbox:checked {
+    background-color: #612c46;
+    border-color: #612c46;
+}

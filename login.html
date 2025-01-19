@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="/css/login.css" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap"
+            rel="stylesheet"
+        />
+        <title>Amani Login</title>
+    </head>
+    <body>
+        <div class="container">
+            <div class="left-panel">
+                <img class="stars" src="/image/stars.svg" alt="" />
+
+                <h1>
+                    <span>A</span>
+                    <span>M</span>
+                    <span>A</span>
+                    <span>N</span>
+                    <span>I</span>
+                </h1>
+                <p class="sub-title">Are you ready to start ?</p>
+            </div>
+            <div class="right-panel">
+                <img class="cloud" src="/image/cloud.svg" alt="" />
+                <form id="dynamic-inputs">
+                    <input
+                        type="text"
+                        name="email"
+                        placeholder="Email"
+                        required
+                    />
+                    <hr />
+                    <input
+                        type="text"
+                        name="username"
+                        placeholder="Username"
+                        required
+                    />
+                    <hr />
+                    <input
+                        type="password"
+                        name="password"
+                        placeholder="Password"
+                        required
+                    />
+                    <hr />
+                    <div class="bt">
+                        <input
+                            type="submit"
+                            value="Sign In"
+                            class="button"
+                            id="sign-in-btn"
+                            name="action"
+                        />
+                        <input
+                            type="submit"
+                            value="Sign Up"
+                            class="button"
+                            id="sign-up-btn"
+                            name="action"
+                        />
+                    </div>
+                </form>
+                <!-- <form id="dynamic-inputs2">
+                    <input
+                        type="text"
+                        name="email"
+                        placeholder="Email"
+                        required
+                    />
+                    <hr />
+                    <input
+                        type="text"
+                        name="username"
+                        placeholder="Username"
+                        required
+                    />
+                    <hr />
+                    <input
+                        type="password"
+                        name="password"
+                        placeholder="Password"
+                        required
+                    />
+                    <hr />
+                    <div class="bt">
+                        <input
+                            type="submit"
+                            value="Sign In"
+                            class="button"
+                            id="sign-in-btn"
+                            name="action"
+                            value="sign-in"
+                        />
+                        <input
+                            type="submit"
+                            value="Sign Up"
+                            class="button"
+                            id="sign-up-btn"
+                            name="action"
+                            value="sign-up"
+                        />
+                    </div>
+                </form> -->
+
+                <div class="forgot-password">Forgot Password ?</div>
+                <p id="error-connexion"></p>
+            </div>
+        </div>
+    </body>
+    <script src="/dist/pages/loginPage.js"></script>
+    <script src="./register.js"></script>
+    <script src="./login.js"></script>
+</html>

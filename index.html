@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <script
+            src="https://kit.fontawesome.com/ec35368b02.js"
+            crossorigin="anonymous"
+        ></script>
+        <link rel="stylesheet" href="/css/index.css" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap"
+            rel="stylesheet"
+        />
+        <title>Document</title>
+    </head>
+    <body>
+        <header>
+            <p>Hi have a good day</p>
+            <div class="navbar">
+                <a class="navbar-info" href="/">Disconnected</a>
+            </div>
+        </header>
+        <main>
+            <div class="container-date">
+                <nav class="sub-container-date1">
+                    <p class="date">5</p>
+                    <p class="day">Monday</p>
+                </nav>
+                <nav class="sub-container-date">
+                    <p class="date">6</p>
+                    <p class="day">Tuesday</p>
+                </nav>
+                <nav class="sub-container-date">
+                    <p class="date">7</p>
+                    <p class="day">Wednesday</p>
+                </nav>
+                <nav class="sub-container-date">
+                    <p class="date">8</p>
+                    <p class="day">Thursday</p>
+                </nav>
+                <nav class="sub-container-date">
+                    <p class="date">9</p>
+                    <p class="day">Friday</p>
+                </nav>
+                <nav class="sub-container-date">
+                    <p class="date">10</p>
+                    <p class="day">Saturday</p>
+                </nav>
+                <nav class="sub-container-date">
+                    <p class="date">11</p>
+                    <p class="day">Sunday</p>
+                </nav>
+            </div>
+            <div class="sub-container-info">
+                <form id="form-task" class="form-task">
+                    <div>
+                        <input
+                            class="title"
+                            placeholder="Title"
+                            type="text"
+                            id="title"
+                            name="title"
+                            required
+                        />
+                        <hr class="sub-hr" />
+                        <label class="to-do-date" for="deadline"
+                            >Deadline :</label
+                        >
+                        <input
+                            class="to-do-date"
+                            type="date"
+                            id="deadline"
+                            name="deadline"
+                            required
+                        />
+                        <br />
+                        <input
+                            placeholder="Description"
+                            class="sub-title"
+                            type="text"
+                            id="description"
+                            name="description"
+                            required
+                        />
+                    </div>
+                    <button class="button" type="submit">Valider</button>
+                </form>
+            </div>
+            <p id="error-task"></p>
+            <hr class="hr" />
+            <button class="add">
+                Add New
+                <svg
+                    width="30"
+                    height="30"
+                    viewBox="0 0 30 30"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <circle
+                        cx="15"
+                        cy="15"
+                        r="14"
+                        stroke="white"
+                        stroke-width="2"
+                    />
+                    <rect
+                        x="14"
+                        y="9"
+                        width="2.5"
+                        height="12"
+                        rx="1.25"
+                        fill="white"
+                    />
+                    <rect
+                        x="9"
+                        y="16.5"
+                        width="2.5"
+                        height="12"
+                        rx="1.25"
+                        transform="rotate(-90 9 16.5)"
+                        fill="white"
+                    />
+                </svg>
+            </button>
+            <div id="container" class="container-info">
+                <div id="task" class="sub-container-info">
+                    <div class="form-task">
+                        <div class="gr">
+                            <input
+                                class="checkbox"
+                                id="status"
+                                type="checkbox"
+                            />
+                            <div class="info">
+                                <p class="title">Sport</p>
+                                <hr class="sub-hr" />
+                                <p class="to-do-date">Release date before :</p>
+                                <p class="sub-title">
+                                    Le sport n’est pas juste une activité
+                                    physique, c’est un engagement envers
+                                    toi-même. Chaque goutte de sueur est une
+                                    preuve que tu avances, peu importe le
+                                    rythme.
+                                </p>
+                            </div>
+                        </div>
+                        <button class="button" id="delete">Supprimer</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </body>
+    <script src="./task.js"></script>
+    <script src="./add.js"></script>
+</html>
