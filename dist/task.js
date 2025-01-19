@@ -1,5 +1,5 @@
 "use strict";
-const change_status = async (taskElement, statusInput) => {
+const change_status = async (taskElement, statusInput, deleteButton) => {
     console.log("Changement de statut appelé."); // Devrait s'afficher si l'événement est déclenché.
     const taskId = taskElement.dataset.taskId;
     const status = statusInput.checked;
@@ -19,6 +19,14 @@ const change_status = async (taskElement, statusInput) => {
                 message_error.innerHTML =
                     "Erreur du changement de statut de la tâche : " +
                         result.message;
+            }
+        }
+        else {
+            if (status && deleteButton) {
+                deleteButton.style.display = "none";
+            }
+            else if (!status && deleteButton) {
+                deleteButton.style.display = "flex";
             }
         }
     }
@@ -104,12 +112,16 @@ const displaytask = async () => {
             container.appendChild(taskCard);
             // Récupère l'input "status" et ajoute un écouteur
             const statusInput = taskCard.querySelector("#status");
+            statusInput.checked = task.status;
             const deleteButton = taskCard.querySelector("#delete");
+            if (task.status && deleteButton) {
+                deleteButton.style.display = "none";
+            }
             deleteButton?.addEventListener("click", () => {
                 delete_task(taskCard);
             });
             statusInput?.addEventListener("change", () => {
-                change_status(taskCard, statusInput);
+                change_status(taskCard, statusInput, deleteButton);
             });
         });
     }

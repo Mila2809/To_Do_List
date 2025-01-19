@@ -1,136 +1,132 @@
-const change_status = async (
+const updateTaskStatus = async (
     taskElement: HTMLElement,
-    statusInput: HTMLInputElement
+    statusInput: HTMLInputElement,
+    deleteButton: HTMLButtonElement | null
 ) => {
-    console.log("Changement de statut appelé."); // Devrait s'afficher si l'événement est déclenché.
     const taskId = taskElement.dataset.taskId;
-    const status = statusInput.checked;
+    const newStatus = statusInput.checked;
 
-    // Appel de la modification du statut
     const response = await fetch("/status_task", {
         method: "PUT",
         headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify({ id: taskId, status: status }),
+        body: JSON.stringify({ id: taskId, status: newStatus }),
     });
 
     if (response) {
         const result = await response.json();
         if (!result.success) {
-            const message_error = document.getElementById("error-task");
-            if (message_error) {
-                message_error.innerHTML =
-                    "Erreur du changement de statut de la tâche : " +
-                    result.message;
+            const errorMessage = document.getElementById("error-task");
+            if (errorMessage) {
+                errorMessage.innerHTML = `Erreur du changement de statut de la tâche : ${result.message}`;
             }
+        } else if (deleteButton) {
+            deleteButton.style.display = newStatus ? "none" : "flex";
         }
     } else {
-        const message_error = document.getElementById("error-task");
-        if (message_error) {
-            message_error.innerHTML =
+        const errorMessage = document.getElementById("error-task");
+        if (errorMessage) {
+            errorMessage.innerHTML =
                 "Une erreur est survenue lors de la connexion.";
         }
     }
 };
-// fonction pour supprimer une tache
-const delete_task = async (taskElement: HTMLElement) => {
+
+const removeTask = async (taskElement: HTMLElement) => {
     const taskId = taskElement.dataset.taskId;
 
-    // Appelle de la suppression
-    const response = await fetch(`/delete_task`, {
+    const response = await fetch("/delete_task", {
         method: "DELETE",
         headers: {
             "Content-Type": "application/json",
         },
         body: JSON.stringify({ id: taskId }),
     });
-    if (response) {
-        // Enleve
-        const result = await response.json();
 
+    if (response) {
+        const result = await response.json();
         if (result.success) {
             taskElement.remove();
-            const tasks = await getTasks();
+            await fetchTasks();
         } else {
-            // Sinon on affiche l'erreur
-            const message_error = document.getElementById("error-task");
-            if (message_error) {
-                message_error.innerHTML =
-                    "Erreur de la suppression de la tache : " + result.message;
+            const errorMessage = document.getElementById("error-task");
+            if (errorMessage) {
+                errorMessage.innerHTML = `Erreur de la suppression de la tâche : ${result.message}`;
             }
         }
     } else {
-        const message_error = document.getElementById("error-task");
-        if (message_error) {
-            message_error.innerHTML =
+        const errorMessage = document.getElementById("error-task");
+        if (errorMessage) {
+            errorMessage.innerHTML =
                 "Une erreur est survenue lors de la connexion.";
         }
     }
 };
-const getTasks = async () => {
-    try {
-        const response = await fetch("/task", {
-            method: "GET",
-        });
 
+const fetchTasks = async () => {
+    try {
+        const response = await fetch("/task", { method: "GET" });
         if (!response.ok) {
             console.error(
                 `Erreur lors de la récupération des tâches : ${response.statusText}`
             );
             return [];
         }
-
         const data = await response.json();
         return data.data || [];
-    } catch (erreur) {
-        console.error("Erreur lors de la requête :", erreur);
+    } catch (error) {
+        console.error("Erreur lors de la requête :", error);
         return [];
     }
 };
 
-const displaytask = async () => {
-    const tasks = await getTasks();
+const renderTasks = async () => {
+    const tasks = await fetchTasks();
     const container = document.getElementById("container");
-    const template = document.getElementById("task");
+    const taskTemplate = document.getElementById("task");
 
-    if (container && template) {
-        container.innerHTML = ""; // Nettoie le conteneur avant d'ajouter des tâches
+    if (container && taskTemplate) {
+        container.innerHTML = "";
         tasks.forEach((task: any) => {
-            // Clone le template
-            const taskCard = template.cloneNode(true) as HTMLElement;
-            taskCard.dataset.taskId = task.id.toString(); // Ajoute l'ID de la tâche
-            taskCard.style.display = "block"; // Rend le template visible
+            const taskCard = taskTemplate.cloneNode(true) as HTMLElement;
+            taskCard.dataset.taskId = task.id.toString();
+            taskCard.style.display = "block";
 
-            // Remplit les données
-            const title = taskCard.querySelector(".title") as HTMLElement;
-            const description = taskCard.querySelector(
+            const titleElement = taskCard.querySelector(
+                ".title"
+            ) as HTMLElement;
+            const descriptionElement = taskCard.querySelector(
                 ".sub-title"
             ) as HTMLElement;
-            const deadline = taskCard.querySelector(
+            const deadlineElement = taskCard.querySelector(
                 ".to-do-date"
             ) as HTMLElement;
 
-            title.textContent = task.title;
-            deadline.textContent = `Release date before : ${task.date}`;
-            description.textContent = task.description;
+            titleElement.textContent = task.title;
+            deadlineElement.textContent = `Release date before : ${task.date}`;
+            descriptionElement.textContent = task.description;
 
-            // Ajoute l'élément cloné au conteneur
             container.appendChild(taskCard);
 
-            // Récupère l'input "status" et ajoute un écouteur
             const statusInput = taskCard.querySelector(
                 "#status"
             ) as HTMLInputElement;
-            const deleteButton = taskCard.querySelector("#delete");
-            deleteButton?.addEventListener("click", () => {
-                delete_task(taskCard);
-            });
-            statusInput?.addEventListener("change", () => {
-                change_status(taskCard, statusInput);
-            });
+            statusInput.checked = task.status;
+
+            const deleteButton = taskCard.querySelector(
+                "#delete"
+            ) as HTMLButtonElement | null;
+            if (task.status && deleteButton) {
+                deleteButton.style.display = "none";
+            }
+
+            deleteButton?.addEventListener("click", () => removeTask(taskCard));
+            statusInput?.addEventListener("change", () =>
+                updateTaskStatus(taskCard, statusInput, deleteButton)
+            );
         });
     }
 };
 
-displaytask();
+renderTasks();

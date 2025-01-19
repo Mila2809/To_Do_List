@@ -120,7 +120,7 @@ input::placeholder {
     /* appearance */
     color: #fff;
 }
-input {
+.input {
     /* forme */
     width: 100%;
 
@@ -155,7 +155,7 @@ hr {
 }
 .button {
     /* forme */
-    width: 26%;
+    width: 40%;
     border-radius: 5px;
 
     /* appearance */

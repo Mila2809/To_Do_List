@@ -1,18 +1,16 @@
 namespace register {
     const handleSubmit = async (e: SubmitEvent): Promise<void> => {
-        e.preventDefault(); // Empêche la soumission automatique du formulaire
+        e.preventDefault();
         const form = e.target as HTMLFormElement;
         const data = new FormData(form);
 
-        const submitButton = e.submitter as HTMLButtonElement; // Cast pour TypeScript
+        const submitButton = e.submitter as HTMLButtonElement;
         const action = submitButton.value;
 
-        // Transforme les données du formulaire en un objet
         const formDataObject = Object.fromEntries(data.entries());
 
         try {
             if (action === "Sign Up") {
-                // Appel de l'inscription
                 const response = await fetch("/register", {
                     method: "POST",
                     headers: {
@@ -25,10 +23,8 @@ namespace register {
                     const result = await response.json();
 
                     if (result.success) {
-                        // Redirection vers la page des tâches
                         window.location.href = "/index";
                     } else {
-                        // Affiche un message d'erreur
                         const message_error =
                             document.getElementById("error-connexion");
                         if (message_error) {
@@ -39,10 +35,6 @@ namespace register {
                 } else {
                     alert("Une erreur est survenue lors de l'inscription.");
                 }
-            } else if (action === "sign-in") {
-                // Appel pour la connexion (non traité ici, mais tu peux l'ajouter de la même manière)
-                console.log("Connexion...");
-                // Code de connexion à ajouter ici
             }
         } catch (error) {
             console.error("Erreur lors de la requête :", error);
@@ -50,7 +42,6 @@ namespace register {
         }
     };
 
-    // Attache l'événement submit au formulaire
     const registerForm =
         document.querySelector<HTMLFormElement>("#dynamic-inputs");
     registerForm?.addEventListener("submit", handleSubmit);

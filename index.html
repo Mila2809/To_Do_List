@@ -18,59 +18,35 @@
     </head>
     <body>
         <header>
-            <p>Hi have a good day</p>
+            <p id="name">Hi, have a great organised day</p>
             <div class="navbar">
-                <a class="navbar-info" href="/">Disconnected</a>
+                <a class="navbar-info" href="/">Log out</a>
             </div>
         </header>
         <main>
-            <div class="container-date">
-                <nav class="sub-container-date1">
-                    <p class="date">5</p>
-                    <p class="day">Monday</p>
-                </nav>
-                <nav class="sub-container-date">
-                    <p class="date">6</p>
-                    <p class="day">Tuesday</p>
-                </nav>
-                <nav class="sub-container-date">
-                    <p class="date">7</p>
-                    <p class="day">Wednesday</p>
-                </nav>
-                <nav class="sub-container-date">
-                    <p class="date">8</p>
-                    <p class="day">Thursday</p>
-                </nav>
-                <nav class="sub-container-date">
-                    <p class="date">9</p>
-                    <p class="day">Friday</p>
-                </nav>
-                <nav class="sub-container-date">
-                    <p class="date">10</p>
-                    <p class="day">Saturday</p>
-                </nav>
-                <nav class="sub-container-date">
-                    <p class="date">11</p>
-                    <p class="day">Sunday</p>
-                </nav>
+            <div class="add">
+                <hr class="hr-add" />
+                <p class="p">Add New Task For Your To Do List</p>
+                <hr class="hr-add" />
             </div>
             <div class="sub-container-info">
                 <form id="form-task" class="form-task">
                     <div>
                         <input
+                            maxlength="18"
                             class="title"
-                            placeholder="Title"
+                            placeholder="Title :"
                             type="text"
                             id="title"
                             name="title"
                             required
                         />
                         <hr class="sub-hr" />
-                        <label class="to-do-date" for="deadline"
+                        <label class="to-do-date_1" for="deadline"
                             >Deadline :</label
                         >
                         <input
-                            class="to-do-date"
+                            class="to-do-date_1"
                             type="date"
                             id="deadline"
                             name="deadline"
@@ -78,7 +54,8 @@
                         />
                         <br />
                         <input
-                            placeholder="Description"
+                            maxlength="100"
+                            placeholder="Description :"
                             class="sub-title"
                             type="text"
                             id="description"
@@ -86,48 +63,13 @@
                             required
                         />
                     </div>
-                    <button class="button" type="submit">Valider</button>
+                    <button class="button" type="submit">Submit</button>
                 </form>
             </div>
             <p id="error-task"></p>
             <hr class="hr" />
-            <button class="add">
-                Add New
-                <svg
-                    width="30"
-                    height="30"
-                    viewBox="0 0 30 30"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                >
-                    <circle
-                        cx="15"
-                        cy="15"
-                        r="14"
-                        stroke="white"
-                        stroke-width="2"
-                    />
-                    <rect
-                        x="14"
-                        y="9"
-                        width="2.5"
-                        height="12"
-                        rx="1.25"
-                        fill="white"
-                    />
-                    <rect
-                        x="9"
-                        y="16.5"
-                        width="2.5"
-                        height="12"
-                        rx="1.25"
-                        transform="rotate(-90 9 16.5)"
-                        fill="white"
-                    />
-                </svg>
-            </button>
             <div id="container" class="container-info">
-                <div id="task" class="sub-container-info">
+                <div id="task" class="sub-container-info" style="display: none">
                     <div class="form-task">
                         <div class="gr">
                             <input
@@ -148,7 +90,7 @@
                                 </p>
                             </div>
                         </div>
-                        <button class="button" id="delete">Supprimer</button>
+                        <button class="button" id="delete">Delete</button>
                     </div>
                 </div>
             </div>

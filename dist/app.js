@@ -314,3 +314,18 @@ app.delete("/delete_task", async (req, res) => {
         return;
     }
 });
+app.get("/user", async (req, res) => {
+    console.log("cacao");
+    const { data: userLogged, error: authError } = await supabase.auth.getUser();
+    if (authError || !userLogged) {
+        res.status(400).json({
+            success: false,
+            message: "Aucun utilisateur connecté",
+        });
+    }
+    res.status(200).json({
+        success: true,
+        message: "Userrécupérées",
+        data: userLogged,
+    });
+});

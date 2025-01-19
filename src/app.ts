@@ -14,11 +14,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname));
 app.use(express.static(path.join(__dirname, "../public")));
-// Afficher la page de connexion et d'inscription
+
 app.get("/", (req: Request, res: Response) => {
     res.sendFile(path.join(__dirname, "../", "login.html"));
 });
-// Lancer le serv
+
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
 });
@@ -27,15 +27,13 @@ app.post("/register", async (req: Request, res: Response) => {
     const { email, username, password } = req.body;
 
     if (!email || !username || !password) {
-        // S'il manque des informations
         res.status(400).json({
             success: false,
-            message: "Veuillez remplir tous les champs.",
+            message: "Please fill in all fields.",
         });
         return;
     }
     try {
-        // Ajout d'un utilisateur
         const { data: authData, error: authError } = await supabase.auth.signUp(
             {
                 email: email,
@@ -45,16 +43,14 @@ app.post("/register", async (req: Request, res: Response) => {
         );
 
         if (authError) {
-            console.log(authError);
             res.status(400).json({
                 success: false,
-                message: "Erreur lors de l'inscription.",
+                message: "Error during registration",
                 error: authError.message,
             });
             return;
         }
 
-        // Ajout à la base de données
         const pwd = await hashPassword(password);
         const { data: userData, error: dbError } = await supabase
             .from("user")
@@ -66,42 +62,37 @@ app.post("/register", async (req: Request, res: Response) => {
             });
 
         if (dbError) {
-            console.log(dbError);
             res.status(400).json({
                 success: false,
-                message:
-                    "Erreur lors de l'ajout de l'utilisateur dans la base de données",
+                message: "Error when adding user to database",
                 error: dbError.message,
             });
             return;
         }
         res.json({
             success: true,
-            message: "Inscription réussie",
+            message: "Successful registration",
             data: { email, username, password },
         });
     } catch (err) {
         res.status(500).json({
             success: false,
-            message: "Erreur serveur.",
+            message: "Server error",
         });
     }
 });
 
 app.post("/login", async (req: Request, res: Response) => {
     const { email, password } = req.body;
-    console.log(email, password);
 
     if (!email || !password) {
-        // S'il manque des informations
         res.status(400).json({
             success: false,
-            message: "Veuillez remplir tous les champs.",
+            message: "Please fill in all fields.",
         });
         return;
     }
 
-    // Vérification des informations
     const { data, error } = await supabase.auth.signInWithPassword({
         email,
         password,
@@ -111,12 +102,12 @@ app.post("/login", async (req: Request, res: Response) => {
         console.debug(error);
         res.status(400).json({
             success: false,
-            message: "Mauvais mot de passe ou email.",
+            message: "Wrong password or email",
         });
     } else {
         res.json({
             success: true,
-            message: "Connexion réussie",
+            message: "successful login",
             data: { email, password },
         });
     }
@@ -127,18 +118,16 @@ app.get("/index", (req: Request, res: Response) => {
 });
 
 app.get("/task", async (req: Request, res: Response) => {
-    // Vérification de l'utilisateur connecté
     const { data: userLogged, error: authError } =
         await supabase.auth.getUser();
     if (authError || !userLogged) {
         res.status(400).json({
             success: false,
-            message: "Aucun utilisateur connecté",
+            message: "No users logged in",
         });
         return;
     }
 
-    // Récupération des tâches de l'utilisateur connecté
     const { data, error } = await supabase
         .from("tache")
         .select("*")
@@ -146,31 +135,30 @@ app.get("/task", async (req: Request, res: Response) => {
     if (error) {
         res.status(400).json({
             success: false,
-            message: "Erreur lors de la récupération des tâches",
+            message: "Error while retrieving tasks",
         });
         return;
     }
     res.json({
         success: true,
-        message: "Tâches récupérées",
+        message: "Recovered tasks",
         data: data,
     });
 });
 
 app.post("/add_task", async (req: Request, res: Response) => {
-    // Vérification de l'utilisateur connecté
     const { data: userLogged, error: authError } =
         await supabase.auth.getUser();
     if (authError || !userLogged) {
         res.status(400).json({
             success: false,
-            message: "Aucun utilisateur connecté",
+            message: "No users logged in",
         });
         return;
     }
 
     const { title, description, deadline } = req.body;
-    // S'il manque des informations
+
     if (!title || !description || !deadline) {
         res.status(400).json({
             success: false,
@@ -179,7 +167,6 @@ app.post("/add_task", async (req: Request, res: Response) => {
         return;
     }
 
-    // Ajout de la tâche à la base de données
     const id = userLogged.user.id;
     const { data: taskData, error: dbError } = await supabase
         .from("tache")
@@ -207,7 +194,6 @@ app.post("/add_task", async (req: Request, res: Response) => {
     });
 });
 app.put("/status_task", async (req: Request, res: Response) => {
-    // Vérification de l'utilisateur connecté
     const { data: userLogged, error: authError } =
         await supabase.auth.getUser();
     if (authError || !userLogged) {
@@ -218,7 +204,6 @@ app.put("/status_task", async (req: Request, res: Response) => {
         return;
     }
 
-    // S'il manque des informations
     const { id, status } = req.body;
     if (!id || typeof status !== "boolean") {
         res.status(400).json({
@@ -229,7 +214,6 @@ app.put("/status_task", async (req: Request, res: Response) => {
     }
 
     try {
-        // Vérification que la tache existe
         const { data: existingData, error: fetchError } = await supabase
             .from("tache")
             .select("id")
@@ -237,7 +221,6 @@ app.put("/status_task", async (req: Request, res: Response) => {
             .single();
 
         if (!existingData) {
-            console.log(existingData);
             res.status(404).json({
                 success: false,
                 message: "Aucune tâche trouvée avec cet ID.",
@@ -245,7 +228,6 @@ app.put("/status_task", async (req: Request, res: Response) => {
             return;
         }
 
-        // Modification du status
         const { data, error } = await supabase
             .from("tache")
             .update({ status: status })
@@ -253,7 +235,6 @@ app.put("/status_task", async (req: Request, res: Response) => {
             .select();
 
         if (error) {
-            console.log(error);
             res.status(500).json({
                 success: false,
                 message: "Erreur lors de la mise à jour du status.",
@@ -277,7 +258,6 @@ app.put("/status_task", async (req: Request, res: Response) => {
     }
 });
 app.delete("/delete_task", async (req: Request, res: Response) => {
-    // Vérification de l'utilisateur connecté
     const { data: userLogged, error: authError } =
         await supabase.auth.getUser();
     if (authError || !userLogged) {
@@ -288,7 +268,6 @@ app.delete("/delete_task", async (req: Request, res: Response) => {
         return;
     }
     try {
-        // S'il manque des informations
         const { id } = req.body;
         if (!id) {
             res.status(400).json({
@@ -298,7 +277,6 @@ app.delete("/delete_task", async (req: Request, res: Response) => {
             return;
         }
 
-        // Suppression de la tâche de la base de données
         const { data: existingData, error: fetchError } = await supabase
             .from("tache")
             .select("*")
@@ -348,4 +326,20 @@ app.delete("/delete_task", async (req: Request, res: Response) => {
         });
         return;
     }
+});
+
+app.get("/user", async (req: Request, res: Response) => {
+    const { data: userLogged, error: authError } =
+        await supabase.auth.getUser();
+    if (authError || !userLogged) {
+        res.status(400).json({
+            success: false,
+            message: "Aucun utilisateur connecté",
+        });
+    }
+    res.status(200).json({
+        success: true,
+        message: "Userrécupérées",
+        data: userLogged,
+    });
 });
