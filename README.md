@@ -2,7 +2,7 @@
 
 Bienvenue dans le projet **To-Do-List** ! Ce projet a été réalisé dans le cadre d'un devoir nécessitant l'utilisation de TypeScript.
 
-##Développeur
+## Développeur
 
 - Mila PAOUNOV
 
