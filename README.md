@@ -26,10 +26,10 @@ Chaque tâche est automatiquement associée à l'utilisateur actuellement connec
 ## Fonctionnalités
 
 - **Pages de connexion**
-- **Pages d'accueil :
-  - **Déconnexion : permet de retourner à la page d'accueil
-  - **Créer des tâches : pour rajouter des tâches
-  - **inventaire des tâches : liste de toutes les tâches rajouter
+- **Pages d'accueil** :
+  - **Déconnexion** : permet de retourner à la page d'accueil
+  - **Créer des tâches** : pour rajouter des tâches
+  - **inventaire des tâches** : liste de toutes les tâches rajouter
 
 ---
 
